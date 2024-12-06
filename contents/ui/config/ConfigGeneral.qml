@@ -39,9 +39,6 @@ Kirigami.FormLayout {
     property alias cfg_timeTextItalic: timeItalic.checked
     property alias cfg_timeTextUnderline: timeUnderline.checked
 
-    // Player Shape
-    property alias cfg_playerShape: playerShape.currentValue
-
     // Transparent Background
     property alias cfg_transparentBackgroundEnabled: transparentBackground.checked
 
@@ -99,27 +96,11 @@ Kirigami.FormLayout {
         }
     }
 
-    // Player Shape
-    QQC2.ComboBox {
-        id: playerShape
-        Layout.fillWidth: true
-        model: [
-            {text: i18n("Circle"), value: shapeCircle},
-            {text: i18n("Square"), value: shapeSquare}
-        ]
-        textRole: "text"
-        valueRole: "value"
-
-        // Use plasmoid.configuration for binding
-        currentIndex: plasmoid.configuration.playerShape === shapeCircle ? 0 : 1
-        onCurrentIndexChanged: plasmoid.configuration.playerShape = model[currentIndex].value
-    }
-
     // Transparent Background
     QQC2.CheckBox {
         id: transparentBackground
         Kirigami.FormData.label: i18n("Background")
-        text: i18n("Transparent")
+        text: i18n("Enabled")
         checked: plasmoid.configuration.transparentBackgroundEnabled
     }
 }

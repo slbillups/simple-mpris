@@ -137,6 +137,8 @@ PlasmoidItem {
                 opacity: text.length > 0 ? 1 : 0
                 visible: opacity > 0
                 z: 1
+                style: Text.Outline
+                styleColor: "black"
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -173,6 +175,8 @@ PlasmoidItem {
                 opacity: root.isSeeking ? 1 : 0
                 visible: opacity > 0
                 z: 1
+                style: Text.Outline
+                styleColor: "black"
 
                 Component.onCompleted: {
                     console.log("TimeOverlay completed")
@@ -184,6 +188,7 @@ PlasmoidItem {
                     const minutes = Math.floor(secs / 60);
                     const seconds = Math.floor(secs % 60);
                     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    
                 }
             }
 
@@ -194,7 +199,7 @@ PlasmoidItem {
                     right: parent.right
                     bottom: parent.bottom
                 }
-                height: albumArtContainer.height * 0.012  // Thin bar
+                height: albumArtContainer.height * 0.02  // Thin bar
                 z: 400
                 
                 gradient: Gradient {
@@ -209,11 +214,11 @@ PlasmoidItem {
                     }
                     GradientStop { 
                         position: root.position / Math.max(1000000, root.duration)
-                        color: "black"
+                        color: "red"
                     }
                     GradientStop { 
                         position: 1
-                        color: "black" 
+                        color: "white" 
                     }
                 }
             }
