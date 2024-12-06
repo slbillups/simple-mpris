@@ -199,28 +199,19 @@ PlasmoidItem {
                     right: parent.right
                     bottom: parent.bottom
                 }
-                height: albumArtContainer.height * 0.02  // Thin bar
+                height: parent.height * 0.015
                 z: 400
-                
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop { 
-                        position: 0
-                        color: "black"
+
+                Rectangle {
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
                     }
-                    GradientStop { 
-                        position: root.position / Math.max(1000000, root.duration)
-                        color: "white"
-                    }
-                    GradientStop { 
-                        position: root.position / Math.max(1000000, root.duration)
-                        color: "red"
-                    }
-                    GradientStop { 
-                        position: 1
-                        color: "white" 
-                    }
+                    width: parent.width * (root.position / Math.max(1000000, root.duration))
+                    color: "white"
                 }
+                color: "#4D000000"  // Semi-transparent black
             }
         }
 
@@ -277,6 +268,18 @@ PlasmoidItem {
         interval: seekHideDelay
         onTriggered: root.isSeeking = false
     }
+
+    Timer {
+    id: seekTimer
+    interval: 1000 / (mpris2Model.currentPlayer?.rate ?? 1)
+    repeat: true
+    running: root.isPlaying
+    onTriggered: {
+        if (!root.isSeeking) {
+            mpris2Model.currentPlayer?.updatePosition()
+        }
+    }
+}
 
     Connections {
         target: Plasmoid
