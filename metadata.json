@@ -1,14 +1,14 @@
 {
     "KPackageStructure": "Plasma/Applet",
     "KPlugin": {
-        "Id": "simple-mpris-test",
+        "Id": "simple-mpris",
         "Icon": "simple_mpris",
         "Name": "Simple Mpris",
         "Description": "A Plasma 6 simple MPRIS viewer",
         "Category": "Multimedia",
         "EnabledByDefault": true,
         "Version": "6.0",
-        "License": "GPL-2.0+",
+        "License": "GPL-3.0",
         "Website": "https://github.com/yourusername/simple-mpris",
         "KPackageStructure": "Plasma/Applet",
         "ConfigFile": "main.xml",
