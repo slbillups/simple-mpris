@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+<kcfgfile name="simple-mpris-test"/>
+    <group name="General">
+    
+        <!-- Volume overlay formatting -->
+        <entry name="volumeTextBold" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="volumeTextItalic" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="volumeTextUnderline" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="volumeOverlayAlignment" type="Int">
+            <default>1</default>
+        </entry>
+        <entry name="volumeOverlayPixelSize" type="Int">
+            <default>12</default>
+        </entry>
+
+        <!-- Time overlay formatting -->
+        <entry name="timeTextBold" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="timeTextItalic" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="timeTextUnderline" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="timeOverlayAlignment" type="Int">
+            <default>1</default>
+        </entry>
+        <entry name="timeOverlayPixelSize" type="Int">
+            <default>12</default>
+        </entry>
+
+        <!-- Player appearance -->
+        <entry name="playerShape" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="transparentBackgroundEnabled" type="Bool">
+            <default>false</default>
+        </entry>
+
+    </group>
+</kcfg>

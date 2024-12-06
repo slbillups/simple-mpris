@@ -1,0 +1,34 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Id": "simple-mpris-test",
+        "Icon": "simple_mpris",
+        "Name": "Simple Mpris",
+        "Description": "A Plasma 6 simple MPRIS viewer",
+        "Category": "Multimedia",
+        "EnabledByDefault": true,
+        "Version": "6.0",
+        "License": "GPL-2.0+",
+        "Website": "https://github.com/yourusername/simple-mpris",
+        "KPackageStructure": "Plasma/Applet",
+        "ConfigFile": "main.xml",
+        "Authors": [
+            {
+                "Email": "mail@friedtofu.site",
+                "Name": "Sean Billups"
+            }
+        ],
+        "Comment": "A Plasma 6 simple MPRIS viewer",
+        "Encoding": "UTF-8"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml",
+    "X-KDE-PluginInfo-Name": "simple-mpris-test",
+    "X-KDE-PluginInfo-Version": "6.0",
+    "X-KDE-PluginInfo-Category": "Multimedia",
+    "X-KDE-ParentComponents": ["simple-mpris-test"],
+    "X-KDE-PluginInfo-EnabledByDefault": true,
+    "X-KDE-ServiceTypes": ["Plasma/Applet"],
+    "X-Plasma-API-Minimum-Version": "6.0"
+
+}
