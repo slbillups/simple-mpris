@@ -21,6 +21,25 @@ PlasmoidItem {
     readonly property bool transparentBackgroundEnabled: Plasmoid.configuration.transparentBackgroundEnabled
     Plasmoid.backgroundHints: transparentBackgroundEnabled
 
+    readonly property int defaultPixelSize: 12
+    readonly property int defaultMultiplier: 1
+    readonly property bool defaultBold: false 
+    readonly property bool defaultItalic: false
+    readonly property bool defaultUnderline: false
+    readonly property int defaultAlignment: Text.AlignHCenter
+
+    // Configuration property getters with fallbacks
+    readonly property int timeOverlayPixelSize: plasmoid?.configuration?.timeOverlayPixelSize ?? defaultPixelSize
+    readonly property int volumeOverlayPixelSize: plasmoid?.configuration?.volumeOverlayPixelSize ?? defaultPixelSize
+    readonly property int timeOverlayAlignment: plasmoid?.configuration?.timeOverlayAlignment ?? defaultAlignment
+    readonly property int volumeOverlayAlignment: plasmoid?.configuration?.volumeOverlayAlignment ?? defaultAlignment
+    readonly property bool timeTextBold: plasmoid?.configuration?.timeTextBold ?? defaultBold
+    readonly property bool timeTextItalic: plasmoid?.configuration?.timeTextItalic ?? defaultItalic
+    readonly property bool timeTextUnderline: plasmoid?.configuration?.timeTextUnderline ?? defaultUnderline
+    readonly property bool volumeTextBold: plasmoid?.configuration?.volumeTextBold ?? defaultBold
+    readonly property bool volumeTextItalic: plasmoid?.configuration?.volumeTextItalic ?? defaultItalic
+    readonly property bool volumeTextUnderline: plasmoid?.configuration?.volumeTextUnderline ?? defaultUnderline
+
     width: Kirigami.Units.gridUnit * 12
     height: width
 
@@ -33,7 +52,7 @@ PlasmoidItem {
     readonly property bool isPlaying: mpris2Model.currentPlayer?.playbackStatus === Mpris.PlaybackStatus.Playing
     readonly property bool canSeek: mpris2Model.currentPlayer?.canSeek ?? false
     readonly property double position: mpris2Model.currentPlayer?.position ?? 0
-    readonly property double duration: mpris2Model.currentPlayer?.metadata?.duration ?? 0
+    readonly property double duration: mpris2Model.currentPlayer?.length ?? 0  // Use length instead of metadata.duration
     readonly property int length: mpris2Model.currentPlayer ? mpris2Model.currentPlayer.length : 0
 
     function seek(offset) {
@@ -100,20 +119,20 @@ PlasmoidItem {
             Text {
                 id: volumeOverlay
                 anchors {
-                    left: plasmoid.configuration.volumeOverlayAlignment === Text.AlignLeft ? albumArtContainer.left : undefined
-                    right: plasmoid.configuration.volumeOverlayAlignment === Text.AlignRight ? albumArtContainer.right : undefined
-                    horizontalCenter: plasmoid.configuration.volumeOverlayAlignment === Text.AlignHCenter ? albumArtContainer.horizontalCenter : undefined
+                    left: root.volumeOverlayAlignment === Text.AlignLeft ? albumArtContainer.left : undefined
+                    right: root.volumeOverlayAlignment === Text.AlignRight ? albumArtContainer.right : undefined
+                    horizontalCenter: root.volumeOverlayAlignment === Text.AlignHCenter ? albumArtContainer.horizontalCenter : undefined
                     top: parent.top
                     bottomMargin: Kirigami.Units.largeSpacing
                 }
-                horizontalAlignment: plasmoid.configuration.volumeOverlayAlignment
+                horizontalAlignment: root.volumeOverlayAlignment
                 text: ""
                 color: "white"
                 font {
-                    pixelSize: plasmoid.configuration.volumeOverlayPixelSize * 1.5
-                    bold: plasmoid.configuration.volumeTextBold
-                    italic: plasmoid.configuration.volumeTextItalic
-                    underline: plasmoid.configuration.volumeTextUnderline
+                    pixelSize: root.volumeOverlayPixelSize * root.defaultMultiplier
+                    bold: root.volumeTextBold
+                    italic: root.volumeTextItalic
+                    underline: root.volumeTextUnderline
                 }
                 opacity: text.length > 0 ? 1 : 0
                 visible: opacity > 0
@@ -129,14 +148,14 @@ PlasmoidItem {
 
             Text {
                 id: timeOverlay
-                    anchors {
-                        left: plasmoid.configuration.timeOverlayAlignment === Text.AlignLeft ? albumArtContainer.left : undefined
-                        right: plasmoid.configuration.timeOverlayAlignment === Text.AlignRight ? albumArtContainer.right : undefined
-                        horizontalCenter: plasmoid.configuration.timeOverlayAlignment === Text.AlignHCenter ? albumArtContainer.horizontalCenter : undefined
-                        bottom: parent.bottom
-                        bottomMargin: Kirigami.Units.largeSpacing
+                anchors {
+                    left: root.timeOverlayAlignment === Text.AlignLeft ? albumArtContainer.left : undefined
+                    right: root.timeOverlayAlignment === Text.AlignRight ? albumArtContainer.right : undefined
+                    horizontalCenter: root.timeOverlayAlignment === Text.AlignHCenter ? albumArtContainer.horizontalCenter : undefined
+                    bottom: parent.bottom
+                    bottomMargin: Kirigami.Units.largeSpacing
                 }
-                horizontalAlignment: plasmoid.configuration.timeOverlayAlignment
+                horizontalAlignment: root.timeOverlayAlignment
                 text: {
                     const pos = Math.floor(root.position / 1000000);  // Convert microseconds to seconds
                     const len = Math.floor(root.length / 1000000);    // Convert microseconds to seconds
@@ -146,19 +165,56 @@ PlasmoidItem {
                 }
                 color: "white"
                 font {
-                    pixelSize: Kirigami.Theme.default.timeOverlayPixelSize * 1.5
-                    bold: plasmoid.configuration.timeTextBold
-                    italic: plasmoid.configuration.timeTextItalic
-                    underline: plasmoid.configuration.timeTextUnderline
+                    pixelSize: root.timeOverlayPixelSize * root.defaultMultiplier
+                    bold: root.timeTextBold
+                    italic: root.timeTextItalic
+                    underline: root.timeTextUnderline
                 }
                 opacity: root.isSeeking ? 1 : 0
                 visible: opacity > 0
                 z: 1
 
+                Component.onCompleted: {
+                    console.log("TimeOverlay completed")
+                    console.log("Configuration available:", plasmoid?.configuration !== undefined)
+                    console.log("Using pixel size:", font.pixelSize)
+                }
+
                 function formatSeconds(secs) {
                     const minutes = Math.floor(secs / 60);
                     const seconds = Math.floor(secs % 60);
                     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+
+            Rectangle {
+                id: seekBar
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                height: albumArtContainer.height * 0.012  // Thin bar
+                z: 400
+                
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { 
+                        position: 0
+                        color: "black"
+                    }
+                    GradientStop { 
+                        position: root.position / Math.max(1000000, root.duration)
+                        color: "white"
+                    }
+                    GradientStop { 
+                        position: root.position / Math.max(1000000, root.duration)
+                        color: "black"
+                    }
+                    GradientStop { 
+                        position: 1
+                        color: "black" 
+                    }
                 }
             }
         }
