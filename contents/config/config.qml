@@ -6,7 +6,7 @@ ConfigModel {
     ConfigCategory {
         id: configCategory
         name: i18n("General")
-        icon: "configure"
+        icon: "simple_mpris"
         source: "../ui/config/ConfigGeneral.qml"
     }
 }
