@@ -42,9 +42,7 @@ then either log out/log back in or ``kquitapp6 plasmashell && kstart plasmashell
 
 - Adjustable widget opacity (use mouse scroll up/down while it has focus)
 
-- change the location of the volume %/seek text via the applet's plasma 
-
-- more configuration options in the applet configuration page (Alt+D or right click -> configure simple-mpris)
+- change the location of the volume %/seek text via the applet's plasma and more via the applet configuration page (Alt+D or right click -> configure simple-mpris)
 
 ### miscellanious info
 
