@@ -233,6 +233,7 @@ PlasmoidItem {
                 maximumLineCount: 1
                 wrapMode: Text.NoWrap
                 opacity: root.isPlaying ? 1.0 : 0.6
+                visible: root.isPlaying && root.track.length > 0
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -252,7 +253,8 @@ PlasmoidItem {
                 elide: Text.ElideRight
                 maximumLineCount: 1
                 wrapMode: Text.NoWrap
-                visible: text.length > 0
+                visible: root.isPlaying && root.track.length > 0
+
             }
         }
     }

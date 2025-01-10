@@ -11,7 +11,7 @@ Kirigami.FormLayout {
     property string title: "Simple MPRIS Configuration"
 
     property int cfg_volumeOverlayAlignmentDefault: Text.AlignLeft
-    property int cfg_timeOverlayAlignmentDefault: Text.AlignLeft
+    property int cfg_timeOverlayAlignmentDefault: Text.Align
     property bool cfg_volumeTextBoldDefault: false
     property bool cfg_volumeTextItalicDefault: false 
     property bool cfg_volumeTextUnderlineDefault: false
