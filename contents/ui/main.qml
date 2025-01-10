@@ -94,7 +94,7 @@ PlasmoidItem {
     ColumnLayout {
         anchors.fill: parent
         spacing: Kirigami.Units.smallSpacing
-        opacity: root.widgetOpacity // Add this line
+        opacity: root.widgetOpacity
 
         // Add smooth animation
         Behavior on opacity {

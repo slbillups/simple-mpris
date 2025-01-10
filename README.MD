@@ -1,49 +1,55 @@
 <div align="center">
-  <img src="image/simple_mpris.svg" width="150" />
+  <img src="image/preview.jpg" width="250" />
   <h1>Simple MPRIS</h1>
 </div>
 
-A minimalist MPRIS media player widget for KDE Plasma 6.0+. Because ricing is serious business and the default Plasma MediaController isn't what we'd deem 【﻿Ａｅｓｔｈｅｔｉｃ】。 
+A minimalist MPRIS media player widget for KDE Plasma 6. I made this because I'm a habitual ricer.
 
-So I chopped out the fat and went for a... (人◕‿◕) 𝕞𝕚𝕟𝕚𝕞𝕒𝕝𝕚𝕤𝕥𝕚𝕔 look, should scale decently on any screen size but if you have an issue with it let me know.
+I built this without any idea that [plasmusic-toolbar](https://github.com/ccatterina/plasmusic-toolbar) already existed, so if you don't like my applet, check out ccaterina's!
 
 ### Install
 
-1. Download or clone this repository
-2. Either throw it into ~/.local/share/plasma/plasmoids or you can use:
-   ```shell
-   kpackagetool6 -i simple-mpris.plasmoid
+either download this repo as a zip or clone this repo and then either:
+rename the .zip .plasmoid and run:
 
-### Features
+```sh
+kpackagetool6 -i simple-mpris.plasmoid --type Plasma/Applet
+```
 
-- basic playback control keybinds
-- visual feedback during seek/volume change
-- Adjustable widget opacity (scroll to fade)
-- Optional (Kirigami default) background
-- ...I said it was minimalistic
-<div align="center">
-<img src="image/widget.png">
-</div>
+or if you cloned the repo
 
-<div align="center">
-<details>
 
-<summary style="font-size: 1.2em;">Desktop Screenshot</summary>
+```sh
+ mv simple-mpris $HOME/.local/share/plasma/plasmoids
+```
 
-<img src="image/screenshotplasmoid.png" />
-</details>
-</div>
+then either log out/log back in or ``kquitapp6 plasmashell && kstart plasmashell``
 
-### Keybinds
+### keybinds
 
-  `Space`: Toggle pause/play
 
-  `Left/Right`: Seek backward/forward by 5 seconds
 
-  `Ctrl + Left/Right`: Previous/next track
+ **left/right arrow keys** to seek -/+ 5 seconds
+  
+  **ctrl+left/right arrow keys** to go to previous/next song
 
-  `Up/Down`: Adjust volume
+  **up/down arrow keys** to increase/decrease volume by 5%
 
-  `Mouse wheel`: Adjust widget opacity
+  **spacebar while in focus** to pause/play current song
+
+### Other Features
+- text overlay to display current position when updating seek/volume
+
+- Adjustable widget opacity (use mouse scroll up/down while it has focus)
+
+- change the location of the volume %/seek text via the applet's plasma 
+
+- more configuration options in the applet configuration page (Alt+D or right click -> configure simple-mpris)
+
+### miscellanious info
+
+Resizing the container may look/feel janky, this is actually intended because of how applets are resized in kirigami units, it allows the image to be freely resized while keeping the aspect ratio of the cover art to prevent clipping the exterior container.
+
+ However if for whatever reason you want to change it, just change lines 109-110 in contents/ui/main.qml. YTMND.
 
 
